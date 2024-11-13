@@ -12,7 +12,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_NUMBER=$(jq --raw-output .number "$GITHUB_EVENT_PATH")
+          echo $PR_NUMBER
           COMMIT_SHA=$(jq --raw-output .pull_request.head.sha "$GITHUB_EVENT_PATH")
+          echo $COMMIT_SHA
+          echo $GITHUB_REPOSITORY
 
           curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
               -d "{\"state\": \"failure\", \"context\": \"PR Status2\", \"description\": \"PR marked as failure\", \"target_url\": \"\"}" \
